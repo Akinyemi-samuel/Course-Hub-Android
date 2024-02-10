@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CourseHub</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="question_registraton">Have an account? <b><a href="">Sign In</a></b> </string>
+    <string name="terms_of_service">I agree to the <b style="color: #8E313A;">Terms of Service</b> </string>
+    <string name="question_login">Don\'t have an account? <b><a href="">Register here</a></b></string>
+    <string name="verification_text">Enter the verification code we sent you on your email address</string>
+    <string name="facebook_app_id">1399494327621784</string>
+    <string name="fb_login_protocol_scheme">fb1399494327621784</string>
+    <string name="facebook_client_token">56789</string>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:title="Home"
+        android:id="@+id/home"
+        android:icon="@drawable/home"
+        tools:ignore="HardcodedText"/>
+
+    <item
+        android:title="Search"
+        android:id="@+id/about"
+        android:icon="@drawable/search"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:title="WishList"
+        android:id="@+id/wishlist"
+        android:icon="@drawable/heart"
+        tools:ignore="HardcodedText"/>
+
+    <item
+        android:title="Profile"
+        android:id="@+id/profile"
+        android:icon="@drawable/settings"
+        tools:ignore="HardcodedText"/>
+</menu>

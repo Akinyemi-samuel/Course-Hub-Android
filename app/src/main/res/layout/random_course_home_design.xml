@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="15dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/course_curve"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
+
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/courseImg"
+            android:layout_width="match_parent"
+            android:layout_height="170dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="15dp"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="7dp">
+
+                <TextView
+                    android:id="@+id/name_of_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:maxLines="1"
+                    android:text="Machine Learning with TensorFlow - "
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/decription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/name_of_course"
+                    android:fontFamily="@font/roboto"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Machine Learning with TensorFlow -"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/instructor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:paddingTop="2dp"
+                android:text="Lily Green"
+                android:textColor="@color/text_color"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/star" />
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/star" />
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/star" />
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/star" />
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/star" />
+
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:text="5.0"
+                    android:textStyle="bold"
+                    android:textColor="#FF5722"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/star" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

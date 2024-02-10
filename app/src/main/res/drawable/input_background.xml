@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- Pressed State -->
+    <item android:state_pressed="true" android:drawable="@drawable/active_edittext" />
+
+    <!-- Focused State (Optional) -->
+    <item android:state_focused="true" android:drawable="@drawable/active_edittext" />
+
+    <!-- Default State (Optional) -->
+    <item android:drawable="@drawable/normal_edittext" />
+</selector>
