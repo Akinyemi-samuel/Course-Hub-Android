@@ -1,6 +1,6 @@
-# Course Booking Mobile App
+# CourseHub Mobile App
 
-Welcome to the Course Booking Mobile App! This application allows users to browse, search for, and book courses. It provides a user-friendly interface and a smooth booking experience. Users can either browse as a guest or log in to access additional features such as booking courses, managing their profile, and adding courses to their wishlist.
+Welcome to the CourseHub Mobile App! This application allows users to browse, search for, and book courses. It provides a user-friendly interface and a smooth booking experience. Users can either browse as a guest or log in to access additional features such as booking courses, managing their profile, and adding courses to their wishlist.
 
 ## Features
 
