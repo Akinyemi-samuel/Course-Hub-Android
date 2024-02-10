@@ -1,6 +1,6 @@
 # Course Booking Mobile App
 
-Welcome to the Course Booking Mobile App! This application allows users to browse, search for, and book courses. It provides a user-friendly interface and a smooth booking experience. Users can either browse as a guest or log in to access additional features such as booking courses and managing their profile.
+Welcome to the Course Booking Mobile App! This application allows users to browse, search for, and book courses. It provides a user-friendly interface and a smooth booking experience. Users can either browse as a guest or log in to access additional features such as booking courses, managing their profile, and adding courses to their wishlist.
 
 ## Features
 
@@ -17,7 +17,7 @@ Welcome to the Course Booking Mobile App! This application allows users to brows
 ![Guest Mode](images/guest_mode.png)
 
 - Users can browse courses without logging in.
-- Limited functionality includes viewing courses and categories but excludes booking and profile management.
+- Limited functionality includes viewing courses and categories but excludes booking, profile management, and wishlist features.
 
 ### Home Page
 
@@ -31,8 +31,8 @@ Welcome to the Course Booking Mobile App! This application allows users to brows
 
 ![Course Details](images/course_details.png)
 
-- Detailed view for each course showing additional information such as description and reviews.
-- Users can add courses to their favorites for easy access.
+- Detailed view for each course showing additional information such as description, reviews, and instructor details.
+- Users can add courses to their wishlist for future reference.
 
 ### Booking Process
 
@@ -46,8 +46,8 @@ Welcome to the Course Booking Mobile App! This application allows users to brows
 
 ![User Profile](images/user_profile.png)
 
-- Users have a profile section where they can view their booked courses, upcoming courses, and past courses.
-- Ability to cancel bookings if needed.
+- Users have a profile section where they can view their booked courses, upcoming courses, past courses, and wishlist items.
+- Ability to cancel bookings and remove courses from the wishlist if needed.
 
 ### Forgot Password
 
@@ -55,6 +55,11 @@ Welcome to the Course Booking Mobile App! This application allows users to brows
 
 - Users can reset their password securely using the "Forgot Password" functionality.
 - A reset link is sent to the user's registered email address.
+
+### Offline Access
+
+- The Android application utilizes Room Database for offline access to view courses.
+- Limited functionalities are available offline, primarily focused on viewing courses.
 
 ### Additional Features
 
@@ -85,8 +90,8 @@ The backend API for this application is developed using Spring Boot. You can fin
 1. Launch the application on your mobile device.
 2. Choose to browse as a guest or log in using your email or social media account.
 3. Explore available courses, filter by categories, and search for specific courses.
-4. View course details, add courses to favorites, and book courses with the payment gateway.
-5. Manage bookings and view profile information.
+4. View course details, add courses to favorites or wishlist, and book courses with the payment gateway.
+5. Manage bookings, view profile information, and update password if needed.
 
 ## Contributing
 
