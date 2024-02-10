@@ -77,7 +77,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ## Backend
 
-The backend API for this application is developed using Spring Boot. You can find the backend repository [here](https://github.com/your-username/backend-repo).
+The backend API for this application is developed using Spring Boot. You can find the backend repository [here](https://github.com/Akinyemi-samuel/CourseHub.git).
 
 ## Installation
 
