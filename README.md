@@ -49,10 +49,16 @@ Welcome to the Course Booking Mobile App! This application allows users to brows
 - Users have a profile section where they can view their booked courses, upcoming courses, and past courses.
 - Ability to cancel bookings if needed.
 
+### Forgot Password
+
+![Forgot Password](images/forgot_password.png)
+
+- Users can reset their password securely using the "Forgot Password" functionality.
+- A reset link is sent to the user's registered email address.
+
 ### Additional Features
 
 - Error handling and validation for user inputs to enhance user experience and application robustness.
-- Forgot password functionality allowing users to reset their passwords securely.
 
 ## Technologies Used
 
