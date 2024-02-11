@@ -129,7 +129,6 @@
         android:layout_height="1sp"
         android:layout_below="@+id/layout_2"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="5dp"
         android:background="#4F333333" />
 
 </LinearLayout>

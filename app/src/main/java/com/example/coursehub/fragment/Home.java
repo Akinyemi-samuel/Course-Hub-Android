@@ -11,12 +11,14 @@ import androidx.constraintlayout.utils.widget.ImageFilterView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -71,7 +73,7 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
         editor = sharedPreferences.edit();
         token = sharedPreferences.getString("token", null);
 
-        courseViewModel.refreshDatabase();
+
         // lIST OF CATEGORIES
         categoryRecyclerView = view.findViewById(R.id.recylerCategory);
         FlexboxLayoutManager flexboxLayoutManager = new FlexboxLayoutManager(getActivity());
@@ -86,7 +88,7 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
         // DATA-SCIENCE CATEGORY
         data_science_category_recyclerview = view.findViewById(R.id.data_science_category_recyclerview);
 //        LinearLayoutManager dataScienceLinearLayoutManager = new LinearLayoutManager(getActivity());
-//        //GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        //GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
 //        data_science_category_recyclerview.setLayoutManager(dataScienceLinearLayoutManager);
 //        dataScienceLinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
 
@@ -94,22 +96,11 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
         // PROGRAMMING CATEGORY
         programming_category_recyclerview = view.findViewById(R.id.programming_category_recyclerview);
 //        LinearLayoutManager programmingLinearLayoutManager = new LinearLayoutManager(getActivity());
-//        //GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1, RecyclerView.HORIZONTAL, true);
-//        programming_category_recyclerview.setLayoutManager(programmingLinearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, RecyclerView.VERTICAL, false);
+        programming_category_recyclerview.setLayoutManager(gridLayoutManager);
 //        programmingLinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
 
-
-
-
-        courseViewModel.getAllCourse().observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
-            @Override
-            public void onChanged(List<Course> courses) {
-                if (getContext() != null) {
-                    //Toast.makeText(getContext(), "UnChanged state courses", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
+        // OBSERVE THE LIVE DATA OF COURSE CATEGORIES
         courseViewModel.getDistinctCategory().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
@@ -182,7 +173,7 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
                     String role = jsonObject.getString("role");
                     boolean emailValid = jsonObject.getBoolean("emailValid");
                     editor.putString("id", userId).commit();
-                    System.out.println(firstName+lastName+email);
+
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -196,7 +187,7 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
 
 
         // IF NEW DATA EXISTS IN DATABASE THEN UPDATE ROOM DATABASE WITH NEW DATA
-
+        courseViewModel.refreshDatabase();
         return view;
     }
 

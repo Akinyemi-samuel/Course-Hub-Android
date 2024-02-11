@@ -49,8 +49,8 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Glide.with(context).load(list.get(position).getImageUrl())
-                .apply(new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(5)))
-                        .into(holder.courseImg);
+                .apply(new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(16)))
+                .into(holder.courseImg);
         holder.name_of_course.setText(list.get(position).getName());
         holder.instructor.setText(list.get(position).getInstructor());
         //holder.price.setText(list.get(position).getName());

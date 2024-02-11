@@ -188,9 +188,9 @@ public class CourseRepository {
 
 
                     }
-
+                    if (shouldRefreshData(c)){
                         insertAll(c);
-
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:text="exciting prizes up for grabs"
+                android:text="Welcome to CourseHub"
                 android:textAllCaps="true"
                 android:textColor="#C6000000"
                 android:textSize="18sp"
@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito"
-                android:text="2022-07-18"
+                android:text="2024-02-15"
                 android:textAllCaps="true"
                 android:textSize="10sp"
                 android:textColor="#C1000000" />

@@ -161,11 +161,10 @@
                     android:paddingTop="18dp">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
-                        android:background="@drawable/baseline_email_24"
+                        android:background="@drawable/moneybag"
                         android:backgroundTint="@color/brown" />
 
                     <TextView
@@ -219,11 +218,10 @@
                     android:paddingTop="18dp">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
-                        android:background="@drawable/baseline_email_24"
+                        android:background="@drawable/user"
                         android:backgroundTint="@color/brown" />
 
                     <TextView
@@ -275,11 +273,10 @@
                     android:paddingTop="18dp">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
-                        android:background="@drawable/baseline_email_24"
+                        android:background="@drawable/clock"
                         android:backgroundTint="@color/brown" />
 
                     <TextView
@@ -330,11 +327,10 @@
                     android:paddingTop="18dp">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
-                        android:background="@drawable/baseline_email_24"
+                        android:background="@drawable/location"
                         android:backgroundTint="@color/brown" />
 
                     <TextView

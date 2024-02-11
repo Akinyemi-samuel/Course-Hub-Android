@@ -17,7 +17,6 @@ public class UserRepository {
     public UserRepository(Application application) {
         CourseDatabase database = CourseDatabase.getInstance(application);
         userDao = database.userDao();
-        this.userDao = userDao;
     }
 
     public void update(User user) {
