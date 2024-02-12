@@ -40,10 +40,14 @@ public class MainActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
         token = sharedPreferences.getString("token", null);
 
-
-
         //sets the default fragment to show on startup
         replaceFragment(new Home());
+
+        if (getIntent().getBooleanExtra("openSearchFragment", false)) {
+            // Set the search fragment as selected
+            binding.bottomNavigationView.setSelectedItemId(R.id.search);
+            replaceFragment(new Search());
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (item.getItemId() == R.id.home) {
                     replaceFragment(new Home());
-                } else if (item.getItemId() == R.id.about) {
+                } else if (item.getItemId() == R.id.search) {
                     replaceFragment(new Search());
                 } else if (item.getItemId() == R.id.wishlist) {
                     replaceFragment(new WishList());

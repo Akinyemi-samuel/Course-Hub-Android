@@ -64,6 +64,7 @@
                 android:id="@+id/search"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:onClick="openSearch"
                 android:src="@drawable/searchs" />
 
         </LinearLayout>
@@ -129,9 +130,7 @@
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
-                android:scrollbars="none"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
+                android:scrollbars="none"/>
 
         </LinearLayout>
 

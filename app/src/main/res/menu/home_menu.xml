@@ -12,7 +12,7 @@
 
     <item
         android:title="Search"
-        android:id="@+id/about"
+        android:id="@+id/search"
         android:icon="@drawable/search"
         tools:ignore="HardcodedText" />
 

@@ -81,6 +81,21 @@
                 android:layout_marginTop="15dp"
                 android:paddingStart="20dp" />
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_centerInParent="true">
+
+                <include
+                    layout="@layout/random_course_home_design_shimmer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,6 +119,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_view_container_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true">
+
+                    <include
+                        layout="@layout/course_category_recyclerview_design_shimmer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
 
             </LinearLayout>
 
@@ -114,6 +144,7 @@
                 android:fontFamily="@font/roboto"
                 android:paddingStart="20dp"
                 android:paddingTop="20dp"
+                android:visibility="invisible"
                 android:text="Top Courses in Data Science"
                 android:textColor="@color/text_color"
                 android:textSize="25sp"
@@ -140,6 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
+                android:visibility="invisible"
                 android:paddingStart="20dp"
                 android:text="Top Courses in Programming"
                 android:textColor="@color/text_color"

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.coursehub.room.entities.Course;
@@ -19,11 +20,34 @@ public class CourseViewModel extends AndroidViewModel {
 
     private LiveData<List<Course>> allCourse;
 
+    MutableLiveData<Boolean> buttonClickedLiveData = new MutableLiveData<>();
+
+
     public CourseViewModel(@NonNull Application application) {
         super(application);
         repository = new CourseRepository(application);
         allCourse = repository.getCourseByRandomLimit4();
+        buttonClickedLiveData.setValue(false);
     }
+
+
+    // Method to update the LiveData when the button is clicked
+    public void buttonClickedTrue() {
+        buttonClickedLiveData.setValue(true);
+    }
+
+    public void buttonClickedFalse() {
+        buttonClickedLiveData.setValue(false);
+    }
+
+    // Getter method for observing the LiveData from the Activity
+    public LiveData<Boolean> getButtonClickedLiveData() {
+        return buttonClickedLiveData;
+    }
+
+    // Getter method for observing the LiveData from the Activit
+
+
 
     public void update(Course course){
         repository.update(course);

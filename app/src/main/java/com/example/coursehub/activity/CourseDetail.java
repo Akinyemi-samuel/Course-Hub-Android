@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +25,7 @@ import com.example.coursehub.adapter.CourseAdapter;
 import com.example.coursehub.databinding.ActivityCourseDetailBinding;
 import com.example.coursehub.room.entities.Course;
 import com.example.coursehub.room.viewmodel.CourseViewModel;
+import com.example.coursehub.service.NetworkUtils;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -75,6 +77,21 @@ public class CourseDetail extends AppCompatActivity {
         });
 
 
+        binding.wishlist.setOnClickListener(n -> {
+
+            boolean isConnected = NetworkUtils.isNetworkAvailable(getApplicationContext());
+            if (! isConnected) {
+                Toast.makeText(this, "No internet Connection available", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (token == null || token.isEmpty()){
+                signInDialog();
+                return;
+            }
+        });
+
+
     }
 
     public void goBack(View view) {
@@ -91,7 +108,7 @@ public class CourseDetail extends AppCompatActivity {
 
     public void signInDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(" Please sign in to enroll in this course");
+        builder.setMessage(" Please sign in to continue...");
         builder.setPositiveButton("Sign in", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

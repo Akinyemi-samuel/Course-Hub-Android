@@ -29,10 +29,12 @@ import com.example.coursehub.activity.Notification;
 import com.example.coursehub.adapter.CourseAdapter;
 import com.example.coursehub.adapter.CourseCategoriesAdapter;
 import com.example.coursehub.adapter.RandomCourseAdapter;
+import com.example.coursehub.databinding.FragmentHomeBinding;
 import com.example.coursehub.room.entities.Course;
 import com.example.coursehub.room.viewmodel.CourseViewModel;
 import com.example.coursehub.service.Pair;
 import com.example.coursehub.service.UserService;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 
@@ -48,10 +50,14 @@ import java.util.List;
 public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickListener, RandomCourseAdapter.ItemClickListener, CourseAdapter.ItemClickListener {
     RecyclerView categoryRecyclerView, randomCourseRecyclerView, data_science_category_recyclerview, programming_category_recyclerview;
     CourseViewModel courseViewModel;
+
+    FragmentHomeBinding binding;
     CourseCategoriesAdapter adapter;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
+    ShimmerFrameLayout shimmerFrameLayout, shimmerFrameLayoutCategory;
 
     String token;
     RandomCourseAdapter randomCourseAdapter;
@@ -63,11 +69,19 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(inflater);
+        View view = binding.getRoot();
         // Inflate the layout for this fragment
 
         gotNotification = view.findViewById(R.id.notification);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_view_container);
+        shimmerFrameLayoutCategory = view.findViewById(R.id.shimmer_view_container_category);
         courseViewModel = new ViewModelProvider(requireActivity()).get(CourseViewModel.class);
+
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
+        shimmerFrameLayoutCategory.setVisibility(View.VISIBLE);
+        shimmerFrameLayoutCategory.startShimmer();
 
         sharedPreferences = requireActivity().getSharedPreferences("myPref", MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -87,30 +101,29 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
 
         // DATA-SCIENCE CATEGORY
         data_science_category_recyclerview = view.findViewById(R.id.data_science_category_recyclerview);
-//        LinearLayoutManager dataScienceLinearLayoutManager = new LinearLayoutManager(getActivity());
-        //GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-//        data_science_category_recyclerview.setLayoutManager(dataScienceLinearLayoutManager);
-//        dataScienceLinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
 
 
         // PROGRAMMING CATEGORY
         programming_category_recyclerview = view.findViewById(R.id.programming_category_recyclerview);
-//        LinearLayoutManager programmingLinearLayoutManager = new LinearLayoutManager(getActivity());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, RecyclerView.VERTICAL, false);
         programming_category_recyclerview.setLayoutManager(gridLayoutManager);
-//        programmingLinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
 
         // OBSERVE THE LIVE DATA OF COURSE CATEGORIES
         courseViewModel.getDistinctCategory().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
 
-                if (strings != null && !strings.isEmpty()){
+                if (!strings.isEmpty()) {
+                    shimmerFrameLayoutCategory.stopShimmer();
+                    shimmerFrameLayoutCategory.setVisibility(View.GONE);
+                }
+
+
                     adapter = new CourseCategoriesAdapter(Home.this);
                     adapter.setCategories(strings);
                     categoryRecyclerView.setAdapter(adapter);
                     categoryRecyclerView.setHasFixedSize(true);
-                }
+
 
             }
         });
@@ -120,6 +133,11 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
         courseViewModel.getCourseByRandomLimit4().observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> courses) {
+
+                if (!courses.isEmpty()) {
+                    shimmerFrameLayout.stopShimmer();
+                    shimmerFrameLayout.setVisibility(View.GONE);
+                }
 
                     randomCourseAdapter = new RandomCourseAdapter(Home.this, getContext());
                     randomCourseAdapter.setCategories(courses);
@@ -134,10 +152,12 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
         courseViewModel.getCourseByCategory("Data Science", 4).observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> courses) {
+
                 courseAdapter = new CourseAdapter(Home.this, getContext());
                 courseAdapter.setCategories(courses);
                 data_science_category_recyclerview.setAdapter(courseAdapter);
                 data_science_category_recyclerview.setHasFixedSize(true);
+                binding.sa.setVisibility(View.VISIBLE);
             }
         });
 
@@ -147,10 +167,12 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
         courseViewModel.getCourseByCategory("Programming", 4).observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> courses) {
+
                 courseAdapter = new CourseAdapter(Home.this, getContext());
                 courseAdapter.setCategories(courses);
                 programming_category_recyclerview.setAdapter(courseAdapter);
                 programming_category_recyclerview.setHasFixedSize(true);
+                binding.prog.setVisibility(View.VISIBLE);
             }
         });
 
@@ -193,9 +215,7 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
 
     @Override
     public void onItemClick(String courseCategory) {
-        Intent intent = new Intent(getContext(), CourseCategoryList.class);
-        intent.putExtra("courseCategory", courseCategory);
-        startActivity(intent);
+       startActivity(new Intent(getContext(), CourseCategoryList.class).putExtra("courseCategory", courseCategory));
     }
 
     @Override
