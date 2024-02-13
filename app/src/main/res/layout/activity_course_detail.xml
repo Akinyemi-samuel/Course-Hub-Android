@@ -45,8 +45,7 @@
                 android:id="@+id/wishlist"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@drawable/wishlist"
-                android:backgroundTint="@color/black"
+                android:src="@drawable/wishlist_course"
                 android:onClick="goBack" />
         </LinearLayout>
 

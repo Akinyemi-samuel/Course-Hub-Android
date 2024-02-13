@@ -3,16 +3,13 @@ package com.example.coursehub.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,14 +18,14 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.coursehub.R;
-import com.example.coursehub.adapter.CourseAdapter;
 import com.example.coursehub.databinding.ActivityCourseDetailBinding;
 import com.example.coursehub.room.entities.Course;
+import com.example.coursehub.room.entities.WishList;
 import com.example.coursehub.room.viewmodel.CourseViewModel;
+import com.example.coursehub.room.viewmodel.WishListViewModel;
 import com.example.coursehub.service.NetworkUtils;
 
 import java.text.NumberFormat;
-import java.util.List;
 import java.util.Locale;
 
 public class CourseDetail extends AppCompatActivity {
@@ -39,7 +36,9 @@ public class CourseDetail extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     String token;
+    String userId;
     CourseViewModel courseViewModel;
+    WishListViewModel wishListViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +50,33 @@ public class CourseDetail extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
         token = sharedPreferences.getString("token", null);
+        userId = sharedPreferences.getString("id", null);
 
         courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+        wishListViewModel = new ViewModelProvider(this).get(WishListViewModel.class);
 
         Long courseId = getIntent().getLongExtra("courseId", 0);
+
+
+        wishListViewModel.isCourseInWishlistCheck(new WishList(Long.parseLong(userId), courseId)).observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    Drawable expectedDrawable = getResources().getDrawable(R.drawable.favorite); // Replace with your expected image resource
+
+                    // Get the Drawable currently set to the ImageView
+                    Drawable actualDrawable = binding.wishlist.getDrawable();
+
+                    // Compare the Drawables
+                    if (actualDrawable != null && actualDrawable.getConstantState().equals(expectedDrawable.getConstantState())) {
+                        // The image displayed in the ImageView matches the expected image
+                        // Your code when condition is true
+                    } else {
+                       binding.wishlist.setImageDrawable(expectedDrawable);
+                    }
+                }
+            }
+        });
 
         courseViewModel.getCourseById(courseId).observe(this, new Observer<Course>() {
             @Override
@@ -77,20 +99,22 @@ public class CourseDetail extends AppCompatActivity {
         });
 
 
+        // add course to wishlist by userId
         binding.wishlist.setOnClickListener(n -> {
-
             boolean isConnected = NetworkUtils.isNetworkAvailable(getApplicationContext());
-            if (! isConnected) {
+            if (!isConnected) {
                 Toast.makeText(this, "No internet Connection available", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (token == null || token.isEmpty()){
+            if (token == null || token.isEmpty()) {
                 signInDialog();
                 return;
             }
-        });
 
+            wishListViewModel.insert(new WishList(Long.parseLong(userId), courseId), getApplicationContext(), this);
+
+        });
 
     }
 
@@ -99,11 +123,10 @@ public class CourseDetail extends AppCompatActivity {
     }
 
     public void bookTheBtn(View view) {
-        if (token == null || token.isEmpty()){
+        if (token == null || token.isEmpty()) {
             signInDialog();
         }
     }
-
 
 
     public void signInDialog() {

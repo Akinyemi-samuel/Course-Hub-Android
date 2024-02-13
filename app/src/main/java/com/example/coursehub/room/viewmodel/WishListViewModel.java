@@ -1,9 +1,12 @@
 package com.example.coursehub.room.viewmodel;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 
 import com.example.coursehub.room.entities.User;
 import com.example.coursehub.room.entities.WishList;
@@ -20,7 +23,12 @@ public class WishListViewModel extends AndroidViewModel {
     }
 
 
-    public void insert(WishList wishList) {
-        repository.insert(wishList);
+    public void insert(WishList wishList, Context context, LifecycleOwner lifecycleOwner) {
+        repository.insert(wishList, context, lifecycleOwner);
+    }
+
+
+    public LiveData<Boolean> isCourseInWishlistCheck(WishList wishList) {
+       return repository.isCourseInWishlistCheck(wishList);
     }
 }

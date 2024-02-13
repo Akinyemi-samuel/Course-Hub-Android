@@ -195,6 +195,7 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
                     String role = jsonObject.getString("role");
                     boolean emailValid = jsonObject.getBoolean("emailValid");
                     editor.putString("id", userId).commit();
+                    System.out.println(userId);
 
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
