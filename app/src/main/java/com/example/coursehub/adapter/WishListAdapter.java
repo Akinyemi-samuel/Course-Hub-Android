@@ -26,7 +26,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapter.ViewHolder> {
+public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHolder> {
 
     List<Course> list;
 
@@ -42,7 +42,7 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
         this.list = list;
     }
 
-    public SearchCourseAdapter(ItemClickListener itemClickListener, Context context, ReviewViewModel reviewViewModel, LifecycleOwner lifecycleOwner) {
+    public WishListAdapter(ItemClickListener itemClickListener, Context context, ReviewViewModel reviewViewModel, LifecycleOwner lifecycleOwner) {
         this.itemClickListener = itemClickListener;
         this.context = context;
         this.reviewViewModel = reviewViewModel;
@@ -52,7 +52,7 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_course_design, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wishlist_design, parent, false);
         return new ViewHolder(view);
     }
 
@@ -105,6 +105,10 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
             itemClickListener.onItemClick(list.get(position));
         });
 
+        holder.removeCourse.setOnClickListener(v -> {
+            itemClickListener.onItemClick2(list.get(position));
+        });
+
     }
 
     @Override
@@ -121,7 +125,8 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView courseImg;
-        TextView name_of_course, instructor, rating, price;
+        TextView name_of_course, instructor, rating, price, removeCourse;
+
         LinearLayout stars_layout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -132,12 +137,17 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
             instructor = itemView.findViewById(R.id.instructor);
             rating = itemView.findViewById(R.id.rating);
             price = itemView.findViewById(R.id.price);
+            removeCourse = itemView.findViewById(R.id.remove_wishlist);
             stars_layout =  itemView.findViewById(R.id.stars_layout);
         }
     }
 
     public interface ItemClickListener {
         void onItemClick(Course course);
+
+        void onItemClick2(Course course);
+
+
     }
 }
 

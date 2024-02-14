@@ -2,9 +2,11 @@ package com.example.coursehub.room.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.example.coursehub.room.entities.Course;
 import com.example.coursehub.room.entities.WishList;
 
 import java.util.List;
@@ -26,4 +28,11 @@ public interface WishListDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM wishlist WHERE course_id = :courseId AND user_id = :userId LIMIT 1)")
     LiveData<Boolean> isCourseInWishlistLiveData(String courseId, String userId);
+
+    @Query("SELECT * FROM course WHERE course_id IN (SELECT course_id FROM wishlist WHERE user_id = :userId)")
+    LiveData<List<Course>> getCoursesInWishlist(Long userId);
+
+    @Query("DELETE FROM wishlist WHERE user_id = :userId AND course_id = :courseId")
+    void deleteWishlistItem(Long userId, Long courseId);
+
 }

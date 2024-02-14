@@ -127,23 +127,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/nunito"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:text="Samuel Akinyemi"
+                android:text=""
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
             <TextView
+                android:id="@+id/settings_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/quicksand"
                 android:gravity="center"
-                android:text="sam@gmail.com"
+                android:text=""
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="normal"
                 tools:ignore="HardcodedText" />
 

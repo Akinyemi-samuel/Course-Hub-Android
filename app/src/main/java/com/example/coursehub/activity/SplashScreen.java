@@ -8,11 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,7 +18,6 @@ import com.example.coursehub.databinding.ActivitySplashScreenBinding;
 import com.example.coursehub.service.Pair;
 import com.example.coursehub.service.UserService;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SplashScreen extends AppCompatActivity {
@@ -100,7 +95,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), Wellcome.class));
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                     finish();
-                }else{
+                } else {
                     new UserService().execute(new Pair<>(getApplicationContext(), token, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {

@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="10dp"
+    android:layout_marginHorizontal="20dp"
     android:layout_marginBottom="15dp">
 
 
     <LinearLayout
         android:id="@+id/layout1"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="1"
@@ -18,7 +18,7 @@
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/courseImg"
             android:layout_width="match_parent"
-            android:layout_height="170dp" />
+            android:layout_height="100dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:fontFamily="@font/montserrat"
                     android:lineBreakWordStyle="phrase"
                     android:maxLines="2"
-                    android:paddingEnd="20dp"
+                    android:paddingEnd="40dp"
                     android:text="Machine Learning with TensorFlow so i know what to do "
                     android:textColor="@color/text_color"
                     android:textSize="17sp"
@@ -59,43 +59,48 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingVertical="5dp">
+                android:paddingVertical="5dp"
+                android:paddingTop="5dp">
 
-                <LinearLayout
-                    android:id="@+id/stars_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="5dp">
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/nunito"
+                    android:src="@drawable/star"
+                    android:text="5.0"
+                    android:textColor="#FF5722"
+                    android:textStyle="bold" />
 
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/star" />
 
-                </LinearLayout>
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/star" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="5dp">
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/star" />
 
-                    <TextView
-                        android:id="@+id/rating"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignEnd="@+id/stars_layout"
-                        android:layout_marginStart="8dp"
-                        android:fontFamily="@font/nunito"
-                        android:text=""
-                        android:textColor="#FF5722"
-                        android:textStyle="bold" />
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/star" />
 
-                </LinearLayout>
-
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/star" />
 
             </LinearLayout>
 

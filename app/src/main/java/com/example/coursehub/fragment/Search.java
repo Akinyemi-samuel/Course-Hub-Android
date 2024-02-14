@@ -18,6 +18,7 @@ import com.example.coursehub.adapter.SearchCourseAdapter;
 import com.example.coursehub.databinding.FragmentSearchBinding;
 import com.example.coursehub.room.entities.Course;
 import com.example.coursehub.room.viewmodel.CourseViewModel;
+import com.example.coursehub.room.viewmodel.ReviewViewModel;
 
 import java.util.List;
 
@@ -48,10 +49,11 @@ public class Search extends Fragment implements SearchCourseAdapter.ItemClickLis
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 courseViewModel.searchCourses(newText).observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
                     @Override
                     public void onChanged(List<Course> courses) {
-                        adapter = new SearchCourseAdapter(Search.this, getContext());
+                        adapter = new SearchCourseAdapter(Search.this, getContext(), new ViewModelProvider(Search.this).get(ReviewViewModel.class), getViewLifecycleOwner());
                         adapter.setCategories(courses);
                         searchRecyclerView.setAdapter(adapter);
 

@@ -23,7 +23,6 @@ import com.android.volley.Response;
 import com.example.coursehub.MainActivity;
 import com.example.coursehub.R;
 import com.example.coursehub.databinding.ActivityLoginBinding;
-import com.example.coursehub.room.viewmodel.CourseViewModel;
 import com.example.coursehub.room.viewmodel.UserViewModel;
 import com.example.coursehub.service.UserService;
 import com.example.coursehub.service.ValidateInputField;
@@ -126,7 +125,6 @@ public class Login extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -204,7 +202,7 @@ public class Login extends AppCompatActivity {
 
         // verify if the OTP CODE is correct with the one sent to the user in email
         verifyBtn.setOnClickListener(n -> {
-            final String OTP_CODE = validateInputField.apply(otp1)+validateInputField.apply(otp2)+validateInputField.apply(otp3)+validateInputField.apply(otp4);
+            final String OTP_CODE = validateInputField.apply(otp1) + validateInputField.apply(otp2) + validateInputField.apply(otp3) + validateInputField.apply(otp4);
             otpEmail = validateInputField.apply(getEmailOtp);
 
             userService.verifyOtPForPasswordForgot(OTP_CODE, otpEmail, this, s -> {
@@ -246,18 +244,18 @@ public class Login extends AppCompatActivity {
             final String confirmPassword = validateInputField.apply(password2);
             otpEmail = validateInputField.apply(getEmailOtp);
 
-            if (!password.equals(confirmPassword)){
+            if (!password.equals(confirmPassword)) {
                 errorMsg.setText("Password do not match");
                 return;
             }
 
-            if (!IsPasswordValid.isPasswordValid(password).isEmpty()){
+            if (!IsPasswordValid.isPasswordValid(password).isEmpty()) {
                 String err = IsPasswordValid.isPasswordValid(password);
                 errorMsg.setText(err);
                 return;
             }
 
-            userService.changePasswordForPasswordForgot(password, otpEmail, this, s ->{
+            userService.changePasswordForPasswordForgot(password, otpEmail, this, s -> {
                 Toast.makeText(Login.this, "Password Updated Successfully", Toast.LENGTH_LONG).show();
                 dialogChangePassword.dismiss();
             });
@@ -272,20 +270,26 @@ public class Login extends AppCompatActivity {
     }
 
     public void proceedLogin() {
-        userService.UserLogin(binding.email, binding.password, this, binding, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                try {
-                    String token = jsonObject.getString("token");
-                    editor.putString("token", token).commit();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
 
-            }
-        });
+        try {
+            userService.UserLogin(binding.email, binding.password, this, binding, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject jsonObject) {
+                    try {
+                        String token = jsonObject.getString("token");
+                        editor.putString("token", token).commit();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            });
+
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void goToRegisteration(View view) {
@@ -296,7 +300,7 @@ public class Login extends AppCompatActivity {
         dialogOTP.show();
     }
 
-    public void initiatesFacebookLogin(){
+    public void initiatesFacebookLogin() {
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -318,9 +322,11 @@ public class Login extends AppCompatActivity {
 
                                         try {
 
-                                            String firstName  = object.getString("first_name");
+                                            String firstName = object.getString("first_name");
                                             String lastName = object.getString("last_name");
-                                            String user_email =object.getString("email");
+                                            String user_email = object.getString("email");
+
+                                            proceedFacebokLogin(firstName, lastName, user_email);
                                         } catch (JSONException e) {
                                             throw new RuntimeException(e);
                                         }
@@ -349,5 +355,34 @@ public class Login extends AppCompatActivity {
 
     public void goBack(View view) {
         onBackPressed();
+    }
+
+
+    public void proceedFacebokLogin(String fName, String lName, String email) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("firstName", fName);
+            jsonObject.put("lastName", lName);
+            jsonObject.put("email", email);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        userService.FacebookLogin(jsonObject, this, binding, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                try {
+                    String token = jsonObject.getString("token");
+                    editor.putString("token", token).commit();
+                    System.out.println(token);
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });
     }
 }

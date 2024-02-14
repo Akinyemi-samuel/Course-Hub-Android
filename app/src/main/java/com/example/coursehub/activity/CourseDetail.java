@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,14 +20,18 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.coursehub.R;
+import com.example.coursehub.adapter.ReviewAdapter;
 import com.example.coursehub.databinding.ActivityCourseDetailBinding;
 import com.example.coursehub.room.entities.Course;
+import com.example.coursehub.room.entities.Reviews;
 import com.example.coursehub.room.entities.WishList;
 import com.example.coursehub.room.viewmodel.CourseViewModel;
+import com.example.coursehub.room.viewmodel.ReviewViewModel;
 import com.example.coursehub.room.viewmodel.WishListViewModel;
 import com.example.coursehub.service.NetworkUtils;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 public class CourseDetail extends AppCompatActivity {
@@ -35,10 +41,14 @@ public class CourseDetail extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    ReviewAdapter reviewAdapter;
+
     String token;
     String userId;
     CourseViewModel courseViewModel;
     WishListViewModel wishListViewModel;
+
+    ReviewViewModel reviewViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +60,52 @@ public class CourseDetail extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
         token = sharedPreferences.getString("token", null);
-        userId = sharedPreferences.getString("id", null);
+        userId = sharedPreferences.getString("id", "0");
 
         courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
         wishListViewModel = new ViewModelProvider(this).get(WishListViewModel.class);
+        reviewViewModel = new ViewModelProvider(this).get(ReviewViewModel.class);
 
         Long courseId = getIntent().getLongExtra("courseId", 0);
 
+        reviewAdapter = new ReviewAdapter(getApplicationContext(), reviewViewModel, this);
+
+
+
+        reviewViewModel.getReviewsById(courseId).observe(this, new Observer<List<Reviews>>() {
+            @Override
+            public void onChanged(List<Reviews> reviews) {
+
+                reviewAdapter.setCategories(reviews);
+                binding.reviewCategoryRecyclerview.setAdapter(reviewAdapter);
+                binding.reviewCategoryRecyclerview.setHasFixedSize(true);
+
+                if (reviews == null || reviews.isEmpty()) {
+                    binding.rating.setText(0);
+                    return;
+                }
+
+                int totalRatings = 0;
+                int sumOfRatings = 0;
+
+                for (Reviews rating : reviews) {
+                    sumOfRatings += rating.getRating();
+                    totalRatings++;
+                }
+
+                double t = (double) sumOfRatings / totalRatings;
+                int filledStars = (int) t;
+                String a = String.valueOf(t);
+                binding.rating.setText(a);
+                binding.reviewRating.setText(a);
+
+
+                for (int i = 0; i < filledStars; i++) {
+                    addStar(binding.starsLayout, R.drawable.star); // Add filled stars
+                }
+
+            }
+        });
 
         wishListViewModel.isCourseInWishlistCheck(new WishList(Long.parseLong(userId), courseId)).observe(this, new Observer<Boolean>() {
             @Override
@@ -72,7 +121,7 @@ public class CourseDetail extends AppCompatActivity {
                         // The image displayed in the ImageView matches the expected image
                         // Your code when condition is true
                     } else {
-                       binding.wishlist.setImageDrawable(expectedDrawable);
+                        binding.wishlist.setImageDrawable(expectedDrawable);
                     }
                 }
             }
@@ -146,6 +195,13 @@ public class CourseDetail extends AppCompatActivity {
         });
         builder.show();
 
+    }
+
+
+    private void addStar(LinearLayout layout, int drawableId) {
+        ImageView star = new ImageView(this);
+        star.setImageResource(drawableId);
+        layout.addView(star);
     }
 
 }

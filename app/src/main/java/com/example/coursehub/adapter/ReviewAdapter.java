@@ -13,24 +13,22 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.coursehub.R;
-import com.example.coursehub.room.entities.Course;
 import com.example.coursehub.room.entities.Reviews;
 import com.example.coursehub.room.viewmodel.ReviewViewModel;
+import com.example.coursehub.service.AuthService;
+import com.example.coursehub.service.Pair;
 
-import java.text.NumberFormat;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
-import java.util.Locale;
 
-public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapter.ViewHolder> {
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
 
-    List<Course> list;
-
-    ItemClickListener itemClickListener;
+    List<Reviews> list;
 
     ReviewViewModel reviewViewModel;
 
@@ -38,12 +36,11 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
     private final Context context;
     private int selectedItem = 0; // Store the selected item position
 
-    public void setCategories(List<Course> list) {
+    public void setCategories(List<Reviews> list) {
         this.list = list;
     }
 
-    public SearchCourseAdapter(ItemClickListener itemClickListener, Context context, ReviewViewModel reviewViewModel, LifecycleOwner lifecycleOwner) {
-        this.itemClickListener = itemClickListener;
+    public ReviewAdapter(Context context, ReviewViewModel reviewViewModel, LifecycleOwner lifecycleOwner) {
         this.context = context;
         this.reviewViewModel = reviewViewModel;
         this.lifecycleOwner = lifecycleOwner;
@@ -52,26 +49,39 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_course_design, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_recycler_design, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Glide.with(context).load(list.get(position).getImageUrl())
-                .apply(new RequestOptions().transforms(new CenterCrop(), new RoundedCorners(16)))
-                .into(holder.courseImg);
-        holder.name_of_course.setText(list.get(position).getName());
-        holder.instructor.setText(list.get(position).getInstructor());
-        //holder.price.setText(list.get(position).getName());
-        Double d = list.get(position).getPrice();
-        String COUNTRY = "US";
-        String LANGUAGE = "en";
-        String str = NumberFormat.getCurrencyInstance(new Locale(LANGUAGE, COUNTRY)).format(d);
-        holder.price.setText(str);
 
-        reviewViewModel.getReviewsById(list.get(position).getCourseId()).observe(lifecycleOwner, new Observer<List<Reviews>>() {
+        holder.comment.setText(list.get(position).getComment());
+
+
+        new AuthService().execute(new Pair<>(list.get(position).getUser(), context, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                try {
+                    String firstName = jsonObject.getString("firstName");
+                    String lastName = jsonObject.getString("lastName");
+
+                    holder.name_of_user.setText(firstName + " " + lastName);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        }));
+
+
+        reviewViewModel.getReviewsById(list.get(position).getCourse()).observe(lifecycleOwner, new Observer<List<Reviews>>() {
             @Override
             public void onChanged(List<Reviews> reviews) {
 
@@ -101,10 +111,6 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
         });
 
 
-        holder.courseImg.setOnClickListener(v -> {
-            itemClickListener.onItemClick(list.get(position));
-        });
-
     }
 
     @Override
@@ -120,25 +126,20 @@ public class SearchCourseAdapter extends RecyclerView.Adapter<SearchCourseAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView courseImg;
-        TextView name_of_course, instructor, rating, price;
+        TextView name_of_user, comment, rating;
+
         LinearLayout stars_layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            courseImg = itemView.findViewById(R.id.courseImg);
-            name_of_course = itemView.findViewById(R.id.name_of_course);
-            instructor = itemView.findViewById(R.id.instructor);
+            name_of_user = itemView.findViewById(R.id.name_of_user);
             rating = itemView.findViewById(R.id.rating);
-            price = itemView.findViewById(R.id.price);
-            stars_layout =  itemView.findViewById(R.id.stars_layout);
+            comment = itemView.findViewById(R.id.comment);
+            stars_layout = itemView.findViewById(R.id.stars_layout);
         }
     }
 
-    public interface ItemClickListener {
-        void onItemClick(Course course);
-    }
 }
 
 

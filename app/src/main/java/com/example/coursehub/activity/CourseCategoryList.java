@@ -17,6 +17,7 @@ import com.example.coursehub.adapter.CourseAdapter;
 import com.example.coursehub.databinding.ActivityCourseCategoryListBinding;
 import com.example.coursehub.room.entities.Course;
 import com.example.coursehub.room.viewmodel.CourseViewModel;
+import com.example.coursehub.room.viewmodel.ReviewViewModel;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class CourseCategoryList extends AppCompatActivity implements CourseAdapt
     CourseViewModel courseViewModel;
     RecyclerView categoryRecyclerView;
     CourseAdapter courseAdapter;
+    String courseCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,9 @@ public class CourseCategoryList extends AppCompatActivity implements CourseAdapt
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        courseAdapter = new CourseAdapter(CourseCategoryList.this, getApplicationContext());
+        courseAdapter = new CourseAdapter(CourseCategoryList.this, getApplicationContext(), new ViewModelProvider(this).get(ReviewViewModel.class), this);
 
-        String courseCategory = getIntent().getStringExtra("courseCategory");
+        courseCategory = getIntent().getStringExtra("courseCategory");
 
         courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
 

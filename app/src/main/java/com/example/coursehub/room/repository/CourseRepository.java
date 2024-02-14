@@ -188,7 +188,7 @@ public class CourseRepository {
 
 
                     }
-                    if (shouldRefreshData(c)){
+                    if (shouldRefreshData(c)) {
                         insertAll(c);
                     }
 

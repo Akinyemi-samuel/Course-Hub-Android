@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.coursehub.R;
 import com.example.coursehub.databinding.ActivityRegistrationBinding;
+import com.example.coursehub.service.NetworkUtils;
 import com.example.coursehub.service.UserService;
 import com.example.coursehub.service.ValidateInputField;
 import com.example.coursehub.validations.EmailValidator;
@@ -144,6 +145,14 @@ public class Registration extends AppCompatActivity {
         final String lastName = validateInputField.apply(binding.lname);
         final String email = validateInputField.apply(binding.email);
         final String password = validateInputField.apply(binding.password);
+
+
+        boolean isConnected = NetworkUtils.isNetworkAvailable(getApplicationContext());
+        if (!isConnected) {
+            Toast.makeText(getApplicationContext(), "No internet Connection available", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         JSONObject registrationData = new JSONObject();
         try {

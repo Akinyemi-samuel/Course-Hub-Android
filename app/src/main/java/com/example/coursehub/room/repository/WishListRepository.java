@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.coursehub.environemnt.Environment;
 import com.example.coursehub.room.dao.WishListDao;
 import com.example.coursehub.room.database.CourseDatabase;
+import com.example.coursehub.room.entities.Course;
 import com.example.coursehub.room.entities.WishList;
 
 import org.json.JSONObject;
@@ -41,7 +42,15 @@ public class WishListRepository {
     public WishListRepository(Application application) {
         CourseDatabase database = CourseDatabase.getInstance(application);
         wishListDao = database.wishListDao();
-        executorService = Executors.newSingleThreadExecutor(); // Create a single-thread executor
+        executorService = Executors.newSingleThreadExecutor(); // Creates a single-thread executor
+    }
+
+    public void deleteWishlistItem(Long userId, Long courseId) {
+        executorService.execute(() -> wishListDao.deleteWishlistItem(userId, courseId));
+    }
+
+    public LiveData<List<Course>> getCoursesInWishlist(Long userId) {
+        return wishListDao.getCoursesInWishlist(userId);
     }
 
 
@@ -62,7 +71,12 @@ public class WishListRepository {
     }
 
 
-    public LiveData<Boolean> isCourseInWishlistCheck(WishList wishList){
+    public LiveData<List<WishList>> getWishListByUserId(Long wishList) {
+        return wishListDao.getWishListByUserId(wishList);
+    }
+
+
+    public LiveData<Boolean> isCourseInWishlistCheck(WishList wishList) {
         String c = String.valueOf(wishList.getCourseId());
         String u = String.valueOf(wishList.getUserId());
 
@@ -86,7 +100,7 @@ public class WishListRepository {
                 new Handler(Looper.getMainLooper()).post(() -> {
                     Toast.makeText(context, "Course added successfully", Toast.LENGTH_SHORT).show();
                 });
-                InsertCourseToWishList(context, wishList.getUserId(), wishList.getCourseId());
+                InsertCourseToWishListApiDatabase(context, wishList.getUserId(), wishList.getCourseId());
             }
         });
 
@@ -108,7 +122,7 @@ public class WishListRepository {
         }
     }
 
-    public void InsertCourseToWishList(Context context, Long user, Long course) {
+    public void InsertCourseToWishListApiDatabase(Context context, Long user, Long course) {
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 

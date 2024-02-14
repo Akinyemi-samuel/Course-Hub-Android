@@ -45,8 +45,8 @@
                 android:id="@+id/wishlist"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/wishlist_course"
-                android:onClick="goBack" />
+                android:onClick="goBack"
+                android:src="@drawable/wishlist_course" />
         </LinearLayout>
 
 
@@ -54,9 +54,9 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/head_navigation"
-        android:layout_marginBottom="75dp"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="75dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,8 +67,8 @@
             <androidx.constraintlayout.utils.widget.ImageFilterView
                 android:id="@+id/courseImg"
                 android:layout_width="match_parent"
-                android:onClick="goBack"
-                android:layout_height="180dp" />
+                android:layout_height="180dp"
+                android:onClick="goBack" />
 
 
             <TextView
@@ -89,47 +89,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:orientation="horizontal"
                 android:paddingVertical="5dp">
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/star" />
+                <LinearLayout
+                    android:id="@+id/stars_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingVertical="5dp">
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/star" />
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/star" />
+                </LinearLayout>
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/star" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingVertical="5dp">
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/star" />
+                    <TextView
+                        android:id="@+id/rating"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignEnd="@+id/stars_layout"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="5.0"
+                        android:textColor="#FF5722"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/rating"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/nunito"
-                    android:src="@drawable/star"
-                    android:text="5.0"
-                    android:textColor="#FF5722"
-                    android:textStyle="bold" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -173,8 +171,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="25dp"
-                        android:text="$49"
                         android:fontFamily="@font/montserrat"
+                        android:text="$49"
                         android:textColor="#C6DA0808"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -230,8 +228,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="25dp"
-                        android:text="samuel"
                         android:fontFamily="@font/nunito"
+                        android:text="samuel"
                         android:textSize="17sp" />
 
                     <LinearLayout
@@ -285,8 +283,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="25dp"
-                        android:text="7 Weeks"
                         android:fontFamily="@font/nunito"
+                        android:text="7 Weeks"
                         android:textSize="17sp" />
 
                     <LinearLayout
@@ -339,12 +337,12 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="25dp"
-                        android:textAlignment="textEnd"
-                        android:paddingStart="5dp"
-                        android:ellipsize="marquee"
                         android:layout_toEndOf="@+id/layout_2sss"
+                        android:ellipsize="marquee"
                         android:fontFamily="@font/nunito"
+                        android:paddingStart="5dp"
                         android:text="Online"
+                        android:textAlignment="textEnd"
                         android:textSize="17sp" />
 
                     <LinearLayout
@@ -361,7 +359,7 @@
                             android:fontFamily="@font/nunito"
                             android:text="Location"
                             android:textColor="#C6000000"
-                            android:textSize="15sp"/>
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -402,12 +400,11 @@
                     android:paddingTop="10dp">
 
                     <TextView
-                        android:id="@+id/review"
+                        android:id="@+id/review_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_bold"
                         android:text="4.7"
-
                         android:textColor="@color/text_color"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -424,6 +421,20 @@
                 </LinearLayout>
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/review_category_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
 
 
             </LinearLayout>
@@ -434,21 +445,20 @@
     </androidx.core.widget.NestedScrollView>
 
 
-
     <Button
         android:id="@+id/bookBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Book Now"
-        android:layout_marginTop="30dp"
         android:layout_alignParentBottom="true"
-        android:fontFamily="@font/montserrat"
-        android:background="@drawable/btn_curve"
-        android:layout_marginBottom="15dp"
-        android:textStyle="bold"
-        android:onClick="bookTheBtn"
         android:layout_marginHorizontal="20dp"
-        android:padding="15dp"/>
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/btn_curve"
+        android:fontFamily="@font/montserrat"
+        android:onClick="bookTheBtn"
+        android:padding="15dp"
+        android:text="Book Now"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

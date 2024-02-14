@@ -1,66 +1,85 @@
 package com.example.coursehub.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.example.coursehub.R;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WishList#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class WishList extends Fragment {
+import com.example.coursehub.activity.CourseDetail;
+import com.example.coursehub.adapter.RandomCourseAdapter;
+import com.example.coursehub.adapter.SearchCourseAdapter;
+import com.example.coursehub.adapter.WishListAdapter;
+import com.example.coursehub.databinding.FragmentWishListBinding;
+import com.example.coursehub.room.entities.Course;
+import com.example.coursehub.room.viewmodel.CourseViewModel;
+import com.example.coursehub.room.viewmodel.ReviewViewModel;
+import com.example.coursehub.room.viewmodel.WishListViewModel;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class WishList extends Fragment implements WishListAdapter.ItemClickListener {
 
-    public WishList() {
-        // Required empty public constructor
-    }
+    FragmentWishListBinding binding;
+    WishListViewModel wishListViewModel;
+    CourseViewModel courseViewModel;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WishList.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static WishList newInstance(String param1, String param2) {
-        WishList fragment = new WishList();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    WishListAdapter randomCourseAdapter;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    String userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wish_list, container, false);
+        binding = FragmentWishListBinding.inflate(inflater);
+
+        courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
+        wishListViewModel = new ViewModelProvider(requireActivity()).get(WishListViewModel.class);
+
+        sharedPreferences = requireActivity().getSharedPreferences("myPref", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        userId = sharedPreferences.getString("id", "0");
+
+        randomCourseAdapter = new WishListAdapter(WishList.this, getContext(), new ViewModelProvider(WishList.this).get(ReviewViewModel.class), getViewLifecycleOwner());
+
+
+        wishListViewModel.getCoursesInWishlist(Long.parseLong(userId)).observe(getActivity(), new Observer<List<Course>>() {
+            @Override
+            public void onChanged(List<Course> courses) {
+                if (!courses.isEmpty()) {
+                    binding.emptyBox.setVisibility(View.GONE);
+                }
+                randomCourseAdapter.setCategories(courses);
+                binding.wishlistRecyclerview.setAdapter(randomCourseAdapter);
+                binding.wishlistRecyclerview.setHasFixedSize(true);
+            }
+        });
+
+
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onItemClick(Course course) {
+        startActivity(new Intent(getContext(), CourseDetail.class).putExtra("courseId", course.getCourseId()));
+    }
+
+    @Override
+    public void onItemClick2(Course course) {
+        wishListViewModel.deleteWishlistItem(Long.parseLong(userId), course.getCourseId());
+        System.out.println(course.getCourseId());
     }
 }

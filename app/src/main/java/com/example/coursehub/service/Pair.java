@@ -1,8 +1,8 @@
 package com.example.coursehub.service;
 
 public class Pair<F, S, R, E> {
-    public final F first ;
-    public final S second ;
+    public final F first;
+    public final S second;
     public final R third;
     public final E fourth;
 
@@ -12,7 +12,6 @@ public class Pair<F, S, R, E> {
         this.third = third;
         this.fourth = fourth;
     }
-
 
 
     public int hashCode() {

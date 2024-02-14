@@ -61,48 +61,43 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:paddingTop="5dp">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
 
-                <TextView
-                    android:id="@+id/rating"
+                <LinearLayout
+                    android:id="@+id/stars_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/nunito"
-                    android:src="@drawable/star"
-                    android:text="5.0"
-                    android:textColor="#FF5722"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingVertical="5dp">
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/star" />
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/star" />
+                </LinearLayout>
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/star" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingVertical="5dp">
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/star" />
+                    <TextView
+                        android:id="@+id/rating"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignEnd="@+id/stars_layout"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/nunito"
+                        android:text="5.0"
+                        android:textColor="#FF5722"
+                        android:textStyle="bold" />
 
-                <androidx.constraintlayout.utils.widget.ImageFilterView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/star" />
+                </LinearLayout>
+
 
             </LinearLayout>
 

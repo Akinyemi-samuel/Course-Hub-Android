@@ -43,6 +43,13 @@ public class Profile extends Fragment {
         sharedPreferences = requireActivity().getSharedPreferences("myPref", MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        String firstName = sharedPreferences.getString("firstName", null);
+        String lastName = sharedPreferences.getString("lastName", null);
+        String email = sharedPreferences.getString("email", null);
+
+        binding.settingsName.setText(firstName + " " + lastName);
+        binding.settingsEmail.setText(email);
+
         binding.notification.setOnClickListener(n ->{
             startActivity(new Intent(getContext(), Notification.class));
         });
