@@ -6,7 +6,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### User Authentication
 
-![User Authentication](app/src/main/res/drawable/login.jpg)  ![User Authentication](app/src/main/res/drawable/register.jpg)
+![User Authentication](app/src/main/res/drawable/login.png)  ![User Authentication](app/src/main/res/drawable/register.png)
 
 - Users can create an account or log in using their email and password or social media accounts.
 - Password reset functionality is included for user convenience, utilizing Java Mail for sending emails.
@@ -29,7 +29,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### Course Details
 
-![Course Details](images/course_details.png)
+![Course Details](app/src/main/res/drawable/bookdetail.png) ![Course Details](app/src/main/res/drawable/bookdetail2.png)
 
 - Detailed view for each course showing additional information such as description, reviews, and instructor details.
 - Users can add courses to their wishlist for future reference.
