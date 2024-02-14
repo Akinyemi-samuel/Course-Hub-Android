@@ -6,15 +6,13 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### User Authentication
 
-![User Authentication](app/src/main/res/drawable/login.png)  ![User Authentication](app/src/main/res/drawable/register.png)
+![User Authentication](app/src/main/res/drawable/login.jpg)  ![User Authentication](app/src/main/res/drawable/register.jpg)
 
 - Users can create an account or log in using their email and password or social media accounts.
 - Password reset functionality is included for user convenience, utilizing Java Mail for sending emails.
 - JSON Web Tokens (JWT) are used for secure authentication and authorization.
 
 ### Guest Mode
-
-![Guest Mode](images/guest_mode.png)
 
 - Users can browse courses without logging in.
 - Limited functionality includes viewing courses and categories but excludes booking, profile management, and wishlist features.
@@ -29,14 +27,12 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### Course Details
 
-![Course Details](app/src/main/res/drawable/bookdetail.png) ![Course Details](app/src/main/res/drawable/bookdetail2.png)
+![Course Details](app/src/main/res/drawable/coursedetails.jpg) ![Course Details](app/src/main/res/drawable/coursedetailss.jpg)
 
 - Detailed view for each course showing additional information such as description, reviews, and instructor details.
 - Users can add courses to their wishlist for future reference.
 
 ### Booking Process
-
-![Booking Process](images/booking_process.png)
 
 - Users can book courses by clicking on the "Book Now" button.
 - Stripe payment gateway is integrated for secure payments.
@@ -44,14 +40,12 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### User Profile
 
-![User Profile](images/user_profile.png)
+![User Profile](app/src/main/res/drawable/profile.png)
 
 - Users have a profile section where they can view their booked courses, upcoming courses, past courses, and wishlist items.
 - Ability to cancel bookings and remove courses from the wishlist if needed.
 
 ### Forgot Password
-
-![Forgot Password](images/forgot_password.png)
 
 - Users can reset their password securely using the "Forgot Password" functionality.
 - A reset link is sent to the user's registered email address.
