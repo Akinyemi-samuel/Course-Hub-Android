@@ -6,7 +6,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### User Authentication
 
-![User Authentication](images/authentication.png)
+![User Authentication](app/src/main/res/drawable/login.jpg)  ![User Authentication](app/src/main/res/drawable/register.jpg)
 
 - Users can create an account or log in using their email and password or social media accounts.
 - Password reset functionality is included for user convenience, utilizing Java Mail for sending emails.
@@ -21,7 +21,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### Home Page
 
-![Home Page](images/home_page.png)
+![Home Page](app/src/main/res/drawable/main.jpg)
 
 - Displays a list of available courses with relevant details such as course name, instructor, duration, date, time, location, and price.
 - Users can filter courses by categories and search for specific courses using the search functionality.
