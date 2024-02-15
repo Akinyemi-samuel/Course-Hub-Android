@@ -34,6 +34,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### Booking Process
 
+![User Booking](app/src/main/res/drawable/payment.jpg)
 - Users can book courses by clicking on the "Book Now" button.
 - Stripe payment gateway is integrated for secure payments.
 - Booking summary with total cost is displayed before confirmation.
