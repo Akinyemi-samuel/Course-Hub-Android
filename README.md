@@ -19,7 +19,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### Home Page
 
-![Home Page](app/src/main/res/drawable/main.jpg)
+![Home Page](app/src/main/res/drawable/homepage.jpg)
 
 - Displays a list of available courses with relevant details such as course name, instructor, duration, date, time, location, and price.
 - Users can filter courses by categories and search for specific courses using the search functionality.
