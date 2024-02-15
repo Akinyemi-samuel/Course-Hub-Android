@@ -62,7 +62,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 ## Technologies Used
 
 - Android (Java) for the mobile application development.
-- Spring Boot for the backend API development.
+- Java, Spring, Spring Boot for the backend API development.
 - MySQL for the database management.
 - JWT for authentication and authorization.
 - Java Mail for sending emails.
