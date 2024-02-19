@@ -19,7 +19,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### Home Page
 
-![Home Page](app/src/main/res/drawable/main.jpg)
+![Home Page](app/src/main/res/drawable/homepage.jpg)
 
 - Displays a list of available courses with relevant details such as course name, instructor, duration, date, time, location, and price.
 - Users can filter courses by categories and search for specific courses using the search functionality.
@@ -34,6 +34,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 
 ### Booking Process
 
+![User Booking](app/src/main/res/drawable/payment.jpg)
 - Users can book courses by clicking on the "Book Now" button.
 - Stripe payment gateway is integrated for secure payments.
 - Booking summary with total cost is displayed before confirmation.
@@ -62,7 +63,7 @@ Welcome to the CourseHub Mobile App! This application allows users to browse, se
 ## Technologies Used
 
 - Android (Java) for the mobile application development.
-- Spring Boot for the backend API development.
+- Java, Spring, Spring Boot for the backend API development.
 - MySQL for the database management.
 - JWT for authentication and authorization.
 - Java Mail for sending emails.
