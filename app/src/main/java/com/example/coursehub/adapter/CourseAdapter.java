@@ -57,14 +57,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
-        View view;
-        if (viewType == grid){
-            view = inflater.inflate(R.layout.course_list_design, parent, false);
-        }else {
-           view= inflater.inflate(R.layout.course_list_design, parent, false);
-        }
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_list_design, parent, false);
         return new ViewHolder(view);
     }
 

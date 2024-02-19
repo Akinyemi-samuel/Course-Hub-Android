@@ -80,6 +80,5 @@ public class WishList extends Fragment implements WishListAdapter.ItemClickListe
     @Override
     public void onItemClick2(Course course) {
         wishListViewModel.deleteWishlistItem(Long.parseLong(userId), course.getCourseId());
-        System.out.println(course.getCourseId());
     }
 }

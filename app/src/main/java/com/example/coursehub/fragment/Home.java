@@ -110,7 +110,7 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
         programming_category_recyclerview.setLayoutManager(gridLayoutManager);
 
         // OBSERVE THE LIVE DATA OF COURSE CATEGORIES
-        courseViewModel.getDistinctCategory().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+        courseViewModel.getDistinctCategory().observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
 
@@ -149,7 +149,7 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
 
 
         //OBSERVE THE LIVE DATA OF DATA-SCIENCE CATEGORY
-        courseViewModel.getCourseByCategory("Data Science", 4).observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
+        courseViewModel.getCourseByCategory("Data Science", 4).observe(this, new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> courses) {
 

@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.BookedCourse"
+            android:exported="false" />
+        <activity
             android:name=".activity.CourseDetail"
             android:exported="false" />
         <activity

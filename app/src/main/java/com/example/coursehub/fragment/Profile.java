@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.coursehub.R;
+import com.example.coursehub.activity.BookedCourse;
 import com.example.coursehub.activity.Login;
 import com.example.coursehub.activity.Notification;
 import com.example.coursehub.activity.Wellcome;
@@ -50,8 +51,8 @@ public class Profile extends Fragment {
         binding.settingsName.setText(firstName + " " + lastName);
         binding.settingsEmail.setText(email);
 
-        binding.notification.setOnClickListener(n ->{
-            startActivity(new Intent(getContext(), Notification.class));
+        binding.bookedCourse.setOnClickListener(n ->{
+            startActivity(new Intent(getContext(), BookedCourse.class));
         });
 
         binding.wishlist.setOnClickListener(n ->{

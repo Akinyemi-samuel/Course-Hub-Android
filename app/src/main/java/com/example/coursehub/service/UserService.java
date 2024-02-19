@@ -11,9 +11,11 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -56,6 +58,18 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 NetworkResponse networkResponse = volleyError.networkResponse;
+                if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 500) {
+                    // Display an error indicating Internal Server Error (status code 500)
+                    loadingDialog.dismissDialog();
+                    Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (volleyError instanceof TimeoutError || volleyError instanceof NoConnectionError){
+                    // Display an error indicating timeout occurred
+                    loadingDialog.dismissDialog();
+                    Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (networkResponse != null && networkResponse.data != null) {
                     String responseString = new String(networkResponse.data, StandardCharsets.UTF_8);
                     Log.e("ErrorResponse", "Response data: " + responseString);
@@ -97,6 +111,12 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
                 NetworkResponse networkResponse = volleyError.networkResponse;
                 if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 500) {
                     // Display an error indicating Internal Server Error (status code 500)
+                    loadingDialog.dismissDialog();
+                    Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (volleyError instanceof TimeoutError || volleyError instanceof NoConnectionError){
+                    // Display an error indicating timeout occurred
                     loadingDialog.dismissDialog();
                     Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
@@ -149,7 +169,6 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
             Toast.makeText(context, "An error occurred", Toast.LENGTH_SHORT).show();
         }
 
-        try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject jsonObject) {
@@ -169,6 +188,12 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
                         Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    if (volleyError instanceof TimeoutError || volleyError instanceof NoConnectionError){
+                        // Display an error indicating timeout occurred
+                        loadingDialog.dismissDialog();
+                        Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if (networkResponse != null && networkResponse.data != null) {
                         String responseString = new String(networkResponse.data, StandardCharsets.UTF_8);
                         Log.e("ErrorResponse", "Response data: " + responseString);
@@ -184,11 +209,6 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
             });
 
             requestQueue.add(jsonObjectRequest);
-        } catch (Exception e) {
-            loadingDialog.dismissDialog();
-            Toast.makeText(context, "An error occurred", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
 
     }
@@ -215,6 +235,18 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 NetworkResponse networkResponse = volleyError.networkResponse;
+                if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 500) {
+                    // Display an error indicating Internal Server Error (status code 500)
+                    loadingDialog.dismissDialog();
+                    Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (volleyError instanceof TimeoutError || volleyError instanceof NoConnectionError){
+                    // Display an error indicating timeout occurred
+                    loadingDialog.dismissDialog();
+                    Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (networkResponse != null && networkResponse.data != null) {
                     String responseString = new String(networkResponse.data, StandardCharsets.UTF_8);
                     Log.e("ErrorResponse", "Response data: " + responseString);
@@ -249,6 +281,18 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
             return;
         }, volleyError -> {
             NetworkResponse networkResponse = volleyError.networkResponse;
+            if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 500) {
+                // Display an error indicating Internal Server Error (status code 500)
+                loadingDialog.dismissDialog();
+                Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (volleyError instanceof TimeoutError || volleyError instanceof NoConnectionError){
+                // Display an error indicating timeout occurred
+                loadingDialog.dismissDialog();
+                Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (networkResponse != null && networkResponse.data != null) {
                 String responseString = new String(networkResponse.data, StandardCharsets.UTF_8);
                 Log.e("ErrorResponse", "Response data: " + responseString);
@@ -282,6 +326,18 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
             return;
         }, volleyError -> {
             NetworkResponse networkResponse = volleyError.networkResponse;
+            if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 500) {
+                // Display an error indicating Internal Server Error (status code 500)
+                loadingDialog.dismissDialog();
+                Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (volleyError instanceof TimeoutError || volleyError instanceof NoConnectionError){
+                // Display an error indicating timeout occurred
+                loadingDialog.dismissDialog();
+                Toast.makeText(context, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (networkResponse != null && networkResponse.data != null) {
                 String responseString = new String(networkResponse.data, StandardCharsets.UTF_8);
                 Log.e("ErrorResponse", "Response data: " + responseString);

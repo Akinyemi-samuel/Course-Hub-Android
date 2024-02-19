@@ -3,6 +3,7 @@ package com.example.coursehub.activity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -19,8 +20,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.Response;
+import com.example.coursehub.MainActivity;
 import com.example.coursehub.R;
 import com.example.coursehub.databinding.ActivityRegistrationBinding;
+import com.example.coursehub.room.viewmodel.UserViewModel;
 import com.example.coursehub.service.NetworkUtils;
 import com.example.coursehub.service.UserService;
 import com.example.coursehub.service.ValidateInputField;
@@ -46,6 +50,11 @@ public class Registration extends AppCompatActivity {
     ActivityRegistrationBinding binding;
     CallbackManager callbackManager;
     boolean passwordVisible;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    private final UserService userService = new UserService();
     Dialog dialog;
     Button okBtn;
 
@@ -56,9 +65,15 @@ public class Registration extends AppCompatActivity {
         binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        sharedPreferences = getSharedPreferences("myPref", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
         // initiates facebook login
         RelativeLayout facebookBtn = findViewById(R.id.facebookBtn);
         initiatesFacebookLogin();
+
+
 
         //Setting up registration confirmation dialog
         dialog =  new Dialog(this);
@@ -133,7 +148,6 @@ public class Registration extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -200,6 +214,8 @@ public class Registration extends AppCompatActivity {
                                             String firstName  = object.getString("first_name");
                                             String lastName = object.getString("last_name");
                                             String user_email =object.getString("email");
+                                            proceedFacebokLogin(firstName, lastName, user_email);
+
                                         } catch (JSONException e) {
                                             throw new RuntimeException(e);
                                         }
@@ -224,5 +240,36 @@ public class Registration extends AppCompatActivity {
                         Toast.makeText(Registration.this, "facebook error", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
     }
+
+
+    public void proceedFacebokLogin(String fName, String lName, String email) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("firstName", fName);
+            jsonObject.put("lastName", lName);
+            jsonObject.put("email", email);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        userService.FacebookLogin(jsonObject, this, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                try {
+                    String token = jsonObject.getString("token");
+                    editor.putString("token", token).commit();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });
+    }
+
 }

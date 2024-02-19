@@ -268,7 +268,7 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:id="@+id/notification"
+                    android:id="@+id/booked_course"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
@@ -290,7 +290,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="50dp"
                         android:fontFamily="@font/nunito"
-                        android:text="Notification"
+                        android:text="Booking"
                         android:textColor="@color/black"
                         android:textSize="22sp"
                         android:textStyle="normal"

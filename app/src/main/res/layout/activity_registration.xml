@@ -185,6 +185,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
                             android:layout_weight="1"
+                            android:visibility="gone"
                             android:background="@drawable/social_background_curve"
                             android:gravity="center"
                             android:paddingVertical="13dp">

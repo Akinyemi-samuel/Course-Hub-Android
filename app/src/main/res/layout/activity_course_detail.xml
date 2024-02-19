@@ -45,7 +45,6 @@
                 android:id="@+id/wishlist"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:onClick="goBack"
                 android:src="@drawable/wishlist_course" />
         </LinearLayout>
 
