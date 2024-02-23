@@ -78,11 +78,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             @Override
             public void onChanged(List<Reviews> reviews) {
 
-                if (reviews == null || reviews.isEmpty()) {
-                    holder.rating.setText(0);
-                    return;
-                }
-
                 int totalRatings = 0;
                 int sumOfRatings = 0;
 

@@ -32,7 +32,6 @@ import java.util.List;
 public class BookedCourse extends AppCompatActivity implements WishListAdapter.ItemClickListener {
     BookingViewModel bookingViewModel;
     CourseViewModel courseViewModel;
-
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     WishListAdapter randomCourseAdapter;
@@ -67,7 +66,6 @@ public class BookedCourse extends AppCompatActivity implements WishListAdapter.I
                 binding.bookedRecyclerview.setHasFixedSize(true);
             }
         });
-
 
     }
 

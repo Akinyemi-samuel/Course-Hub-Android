@@ -68,11 +68,6 @@ public class RandomCourseAdapter extends RecyclerView.Adapter<RandomCourseAdapte
             @Override
             public void onChanged(List<Reviews> reviews) {
 
-                if (reviews == null || reviews.isEmpty()) {
-                    holder.rating.setText(0);
-                    return;
-                }
-
                 int totalRatings = 0;
                 int sumOfRatings = 0;
 
@@ -100,7 +95,11 @@ public class RandomCourseAdapter extends RecyclerView.Adapter<RandomCourseAdapte
 
     @Override
     public int getItemCount() {
-        return list.size();
+        if (list != null) {
+            return list.size();
+        }else{
+            return 0;
+        }
     }
 
     private void addStar(LinearLayout layout, int drawableId) {
