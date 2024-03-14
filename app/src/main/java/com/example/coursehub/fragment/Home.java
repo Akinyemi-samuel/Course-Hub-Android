@@ -180,7 +180,7 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
         });
 
 
-        new UserService().execute(new Pair<>(getContext(), token, new Response.Listener<JSONObject>() {
+        new UserService(getContext()).execute(new Pair<>(getContext(), token, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 try {

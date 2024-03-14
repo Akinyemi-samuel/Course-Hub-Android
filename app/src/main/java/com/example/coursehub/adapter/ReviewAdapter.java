@@ -60,7 +60,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         holder.comment.setText(list.get(position).getComment());
 
 
-        new AuthService().execute(new Pair<>(list.get(position).getUser(), context, new Response.Listener<JSONObject>() {
+        new AuthService(context).execute(new Pair<>(list.get(position).getUser(), context, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 try {

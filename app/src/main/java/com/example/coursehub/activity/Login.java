@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity {
 
     UserViewModel userViewModel;
     SharedPreferences.Editor editor;
-    private final UserService userService = new UserService();
+    private UserService userService;
     private final ValidateInputField validateInputField = new ValidateInputField();
     boolean passwordVisible;
     CallbackManager callbackManager;
@@ -70,6 +70,7 @@ public class Login extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("myPref", MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        userService = new UserService(getApplicationContext());
 
         // initiates facebook login
         RelativeLayout facebookBtn = findViewById(R.id.facebookBtn);

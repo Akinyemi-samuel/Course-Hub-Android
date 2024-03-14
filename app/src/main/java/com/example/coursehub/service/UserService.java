@@ -34,14 +34,18 @@ import java.util.Objects;
 public class UserService extends AsyncTask<Pair<Context, String, Response.Listener<JSONObject>, Response.ErrorListener>, Void, Void> {
 
     private final ValidateInputField validateInputField = new ValidateInputField();
+    private static RequestQueue requestQueue;
 
-
+    public UserService(Context context) {
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(context.getApplicationContext());
+        }
+    }
     public void FacebookLogin(JSONObject jsonObject, Context context, ActivityLoginBinding binding, Response.Listener<JSONObject> response) {
 
         LoadingDialog loadingDialog = new LoadingDialog(context);
         loadingDialog.createLoadingDialgg();
         loadingDialog.OpenlogoutDialog();
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         final String url = Environment.getBaseUrl() + "auth/login/facebook";
 
@@ -93,8 +97,6 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
         loadingDialog.createLoadingDialgg();
         loadingDialog.OpenlogoutDialog();
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-
         final String url = Environment.getBaseUrl() + "auth";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
@@ -139,14 +141,11 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
 
     }
 
-
     public void UserLogin(EditText em, EditText pw, Context context, ActivityLoginBinding binding, Response.Listener<JSONObject> response) {
 
         LoadingDialog loadingDialog = new LoadingDialog(context);
         loadingDialog.createLoadingDialgg();
         loadingDialog.OpenlogoutDialog();
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-
 
         boolean isConnected = NetworkUtils.isNetworkAvailable(context.getApplicationContext());
         if (!isConnected) {
@@ -219,7 +218,6 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
         LoadingDialog loadingDialog = new LoadingDialog(context);
         loadingDialog.createLoadingDialgg();
         loadingDialog.OpenlogoutDialog();
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         final String url = Environment.getBaseUrl() + "user/passwordreset/" + email + "/verify";
 
@@ -270,7 +268,6 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
         LoadingDialog loadingDialog = new LoadingDialog(context);
         loadingDialog.createLoadingDialgg();
         loadingDialog.OpenlogoutDialog();
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         final String url = Environment.getBaseUrl() + "user/passwordreset/" + email + "/" + token;
 
@@ -315,7 +312,6 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
         LoadingDialog loadingDialog = new LoadingDialog(context);
         loadingDialog.createLoadingDialgg();
         loadingDialog.OpenlogoutDialog();
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         final String url = Environment.getBaseUrl() + "user/passwordreset/" + email + "/" + password + "/p";
 
@@ -357,8 +353,6 @@ public class UserService extends AsyncTask<Pair<Context, String, Response.Listen
     private void getUserDetails(Context context, String token, Response.Listener<JSONObject> response, Response.ErrorListener err) {
 
         final String userDetailsUrl = Environment.getBaseUrl() + "auth/userdetails";
-
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, userDetailsUrl, null, new Response.Listener<JSONObject>() {
             @Override

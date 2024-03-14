@@ -96,7 +96,7 @@ public class SplashScreen extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                     finish();
                 } else {
-                    new UserService().execute(new Pair<>(getApplicationContext(), token, new Response.Listener<JSONObject>() {
+                    new UserService(getApplicationContext()).execute(new Pair<>(getApplicationContext(), token, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));

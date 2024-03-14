@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +21,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.coursehub.R;
 import com.example.coursehub.activity.BookedCourse;
 import com.example.coursehub.activity.Login;
-import com.example.coursehub.activity.Notification;
-import com.example.coursehub.activity.Wellcome;
 import com.example.coursehub.databinding.FragmentProfileBinding;
 
 
@@ -51,11 +47,11 @@ public class Profile extends Fragment {
         binding.settingsName.setText(firstName + " " + lastName);
         binding.settingsEmail.setText(email);
 
-        binding.bookedCourse.setOnClickListener(n ->{
+        binding.bookedCourse.setOnClickListener(n -> {
             startActivity(new Intent(getContext(), BookedCourse.class));
         });
 
-        binding.wishlist.setOnClickListener(n ->{
+        binding.wishlist.setOnClickListener(n -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, new WishList()).commit();
@@ -97,10 +93,9 @@ public class Profile extends Fragment {
         binding.about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               openWebsite("https://github.com/Akinyemi-samuel");
+                openWebsite("https://github.com/Akinyemi-samuel");
             }
         });
-
 
 
         return binding.getRoot();

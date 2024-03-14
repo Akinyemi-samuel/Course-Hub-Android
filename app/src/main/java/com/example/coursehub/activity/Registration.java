@@ -14,17 +14,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.Response;
 import com.example.coursehub.MainActivity;
 import com.example.coursehub.R;
 import com.example.coursehub.databinding.ActivityRegistrationBinding;
-import com.example.coursehub.room.viewmodel.UserViewModel;
 import com.example.coursehub.service.NetworkUtils;
 import com.example.coursehub.service.UserService;
 import com.example.coursehub.service.ValidateInputField;
@@ -54,7 +49,7 @@ public class Registration extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    private final UserService userService = new UserService();
+    private UserService userService;
     Dialog dialog;
     Button okBtn;
 
@@ -68,20 +63,20 @@ public class Registration extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("myPref", MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        userService = new UserService(getApplicationContext());
 
         // initiates facebook login
         RelativeLayout facebookBtn = findViewById(R.id.facebookBtn);
         initiatesFacebookLogin();
 
 
-
         //Setting up registration confirmation dialog
-        dialog =  new Dialog(this);
+        dialog = new Dialog(this);
         dialog.setContentView(R.layout.successful_registration_dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.card_curve));
         dialog.setCancelable(false);
-        okBtn =  dialog.findViewById(R.id.okbtn);
+        okBtn = dialog.findViewById(R.id.okbtn);
 
 
         binding.registerBtn.setOnClickListener(n -> {
@@ -96,19 +91,19 @@ public class Registration extends AppCompatActivity {
                 return;
             }
 
-            if (!EmailValidator.isEmailValid(email)){
+            if (!EmailValidator.isEmailValid(email)) {
                 binding.errormsg.setText("Invalid email format.");
                 return;
             }
 
 
-            if (!IsPasswordValid.isPasswordValid(password).isEmpty()){
+            if (!IsPasswordValid.isPasswordValid(password).isEmpty()) {
                 String err = IsPasswordValid.isPasswordValid(password);
                 binding.errormsg.setText(err);
                 return;
             }
 
-                proceedRegistration();
+            proceedRegistration();
 
 
         });
@@ -179,7 +174,7 @@ public class Registration extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        UserService registrationService = new UserService();
+        UserService registrationService = new UserService(getApplicationContext());
         registrationService.RegisterUser(this, registrationData, binding, dialog);
     }
 
@@ -189,7 +184,7 @@ public class Registration extends AppCompatActivity {
         finish();
     }
 
-    public void initiatesFacebookLogin(){
+    public void initiatesFacebookLogin() {
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -211,9 +206,9 @@ public class Registration extends AppCompatActivity {
 
                                         try {
 
-                                            String firstName  = object.getString("first_name");
+                                            String firstName = object.getString("first_name");
                                             String lastName = object.getString("last_name");
-                                            String user_email =object.getString("email");
+                                            String user_email = object.getString("email");
                                             proceedFacebokLogin(firstName, lastName, user_email);
 
                                         } catch (JSONException e) {

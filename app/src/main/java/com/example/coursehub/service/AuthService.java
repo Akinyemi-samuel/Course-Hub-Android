@@ -15,12 +15,17 @@ import org.json.JSONObject;
 
 public class AuthService extends AsyncTask<Pair<Long, Context, Response.Listener<JSONObject>, Response.ErrorListener>, Void, Void> {
 
-    private void getUserById(Long id, Context context, Response.Listener<JSONObject> response, Response.ErrorListener err) {
+    private static RequestQueue requestQueue;
+
+    public AuthService(Context context) {
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(context.getApplicationContext());
+        }
+    }
+
+    private void getUserById(Long id, Response.Listener<JSONObject> response, Response.ErrorListener err) {
 
         final String userDetailsUrl = Environment.getBaseUrl() + "user/" + id;
-
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, userDetailsUrl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
@@ -40,10 +45,9 @@ public class AuthService extends AsyncTask<Pair<Long, Context, Response.Listener
     protected Void doInBackground(Pair<Long, Context, Response.Listener<JSONObject>, Response.ErrorListener>... pairs) {
 
         Long id = pairs[0].first;
-        Context context = pairs[0].second;
         Response.Listener<JSONObject> response = pairs[0].third;
         Response.ErrorListener err = pairs[0].fourth;
-        getUserById(id, context, response, err);
+        getUserById(id, response, err);
         return null;
     }
 }
