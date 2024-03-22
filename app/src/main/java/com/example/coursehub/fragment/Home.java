@@ -203,11 +203,16 @@ public class Home extends Fragment implements CourseCategoriesAdapter.ItemClickL
             }
         }));
 
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         // IF NEW DATA EXISTS IN DATABASE THEN UPDATE ROOM DATABASE WITH NEW DATA
         courseViewModel.refreshDatabase();
-
-        return view;
+        System.out.println("This was deleted");
     }
 
     @Override

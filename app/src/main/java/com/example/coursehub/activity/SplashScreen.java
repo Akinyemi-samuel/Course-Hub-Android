@@ -84,38 +84,37 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
 
+    }
 
-        //creates a timer of 3 seconds before moving to next activity
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
 
-                if (token == null || token.isEmpty()) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (token == null || token.isEmpty()) {
+            startActivity(new Intent(getApplicationContext(), Wellcome.class));
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+            finish();
+        }
+        else {
+            new UserService(getApplicationContext()).execute(new Pair<>(getApplicationContext(), token, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject jsonObject) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+                    finish();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    editor.clear().commit();
                     startActivity(new Intent(getApplicationContext(), Wellcome.class));
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
                     finish();
-                } else {
-                    new UserService(getApplicationContext()).execute(new Pair<>(getApplicationContext(), token, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject jsonObject) {
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-                            finish();
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            editor.clear().commit();
-                            startActivity(new Intent(getApplicationContext(), Wellcome.class));
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-                            finish();
-                        }
-                    }));
                 }
+            }));
+        }
 
-            }
-        }, 2000);
 
     }
 }
